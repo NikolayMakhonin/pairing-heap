@@ -46,7 +46,7 @@ describe('pairing-heap > PairingHeap perf', function () {
       set.delete(minItem)
     }
 
-    const count = 10
+    const count = 1000
 
     let result = calcPerformance(
       10000,
@@ -55,10 +55,16 @@ describe('pairing-heap > PairingHeap perf', function () {
       },
       () => {
         for (let i = 0; i < count; i++) {
-          array.push(i % 2 === 0 ? i - 2 : i)
+          pairingHeap.add(i % 2 === 0 ? i - 2 : i)
+        }
+        for (let i = 0; i < count; i++) {
+          pairingHeap.deleteMin()
         }
       },
       () => {
+        for (let i = 0; i < count; i++) {
+          array.push(i % 2 === 0 ? i - 2 : i)
+        }
         for (let i = 0; i < count; i++) {
           arrayDeleteMin(array)
         }
@@ -67,20 +73,8 @@ describe('pairing-heap > PairingHeap perf', function () {
         for (let i = 0; i < count; i++) {
           set.add(i % 2 === 0 ? i - 2 : i)
         }
-      },
-      () => {
         for (let i = 0; i < count; i++) {
           setDeleteMin(set)
-        }
-      },
-      () => {
-        for (let i = 0; i < count; i++) {
-          pairingHeap.add(i % 2 === 0 ? i - 2 : i)
-        }
-      },
-      () => {
-        for (let i = 0; i < count; i++) {
-          pairingHeap.deleteMin()
         }
       },
     )
