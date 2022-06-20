@@ -5,10 +5,10 @@ console.log('ENV_VARS', process.env)
 // docs: http://karma-runner.github.io/6.3/config/configuration-file.html
 module.exports = function (config) {
   config.set({
-    browserNoActivityTimeout  : 15 * 60 * 1000 + 1,
+    browserNoActivityTimeout  : 45 * 1000 + 1,
     browserSocketTimeout      : 35 * 1000 + 2,
     browserDisconnectTimeout  : 5 * 1000 + 3,
-    browserDisconnectTolerance: 2,
+    browserDisconnectTolerance: 1,
     // captureTimeout          : 60 * 1000 + 4,
     // processKillTimeout      : 17 * 1000 + 5,
     // pingTimeout             : 20 * 1000 + 6,
