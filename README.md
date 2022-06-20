@@ -16,14 +16,14 @@ const pairingHeap = new PairingHeap({
 
 let node: PairingNode<number>
 
-node = pairingHeap.add(7)
+node = pairingHeap.add(5)
 pairingHeap.add(9)
-pairingHeap.add(5)
 pairingHeap.add(3)
+pairingHeap.add(7)
 pairingHeap.getMin() // 3
 pairingHeap.deleteMin() // 3
 pairingHeap.delete(node)
-pairingHeap.deleteMin() // 5
+pairingHeap.deleteMin() // 7
 pairingHeap.size() // 1
 pairingHeap.isEmpty() // false
 pairingHeap.clear()
