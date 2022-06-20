@@ -160,8 +160,6 @@ describe('pairing-heap > PairingHeap', function () {
       assert.strictEqual(heap.deleteMin(), void 0)
     }
 
-    console.log('.')
-
     return iterations
   })
 
