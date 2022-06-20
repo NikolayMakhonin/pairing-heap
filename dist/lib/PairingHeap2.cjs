@@ -19,7 +19,7 @@ function lessThanDefault(o1, o2) {
  * concerns for stackframe overhead).
  */
 class PairingHeap {
-    constructor({ objectPool, lessThanFunc, }) {
+    constructor({ objectPool, lessThanFunc, } = {}) {
         // ! The number of items held in the queue
         this._size = 0;
         // ! Pointer to the minimum node in the queue

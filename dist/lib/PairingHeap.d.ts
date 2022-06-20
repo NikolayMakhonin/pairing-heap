@@ -29,7 +29,7 @@ export declare class PairingHeap<TItem> {
     private readonly _lessThanFunc;
     private _size;
     private _root;
-    constructor({ objectPool, lessThanFunc, }: {
+    constructor({ objectPool, lessThanFunc, }?: {
         objectPool?: IObjectPool<PairingNode<TItem>>;
         lessThanFunc?: TLessThanFunc<TItem>;
     });
