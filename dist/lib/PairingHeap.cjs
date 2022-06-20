@@ -7,3 +7,5 @@ var PairingHeap = require('./PairingHeap2.cjs');
 
 
 exports.PairingHeap = PairingHeap.PairingHeap;
+exports.collapse = PairingHeap.collapse;
+exports.merge = PairingHeap.merge;
