@@ -191,9 +191,9 @@ const browserTestsConfig = {
         target: 'es5',
       },
     }),
-    istanbul({
-      ...nycrc,
-    }),
+    // istanbul({
+    //   ...nycrc,
+    // }),
     babel({
       configFile  : path.resolve(__dirname, '.babelrc.cjs'), // enable babel for node_modules
       extensions  : ['.ts', '.js', '.cjs', '.mjs'],
