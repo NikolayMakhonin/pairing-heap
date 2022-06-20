@@ -1,9 +1,9 @@
 !function(e){"use strict";function t(e,t){
 return e<t}var n=function(){function e(e){
-var n=e.objectPool,o=e.lessThanFunc
-;this._size=0,this._root=null,this.merge=l,this.collapse=r,
-this._objectPool=n,this._lessThanFunc=o||t}
-return e.prototype.clear=function(){
+var n=void 0===e?{}:e,o=n.objectPool,i=n.lessThanFunc
+;this._size=0,this._root=null,
+this.merge=l,this.collapse=r,this._objectPool=o,this._lessThanFunc=i||t
+}return e.prototype.clear=function(){
 this._root=null,this._size=0
 },Object.defineProperty(e.prototype,"size",{
 get:function(){return this._size},enumerable:!1,
