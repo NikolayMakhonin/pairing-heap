@@ -54,7 +54,7 @@ export class PairingHeap<TItem> {
   }: {
 		objectPool?: IObjectPool<PairingNode<TItem>>,
 		lessThanFunc?: TLessThanFunc<TItem>,
-	}) {
+	} = {}) {
     this._objectPool = objectPool
     this._lessThanFunc = lessThanFunc || lessThanDefault
   }
