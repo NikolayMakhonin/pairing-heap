@@ -3,7 +3,32 @@
 [![Build Status][github-image]][github-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 
-setTimeout and Date.now() mock for fast testing
+Fastest pairing heap (priority queue) implementation on JavaScript
+
+# Usage
+
+```ts
+import {PairingHeap, PairingNode} from "./PairingHeap";
+
+const pairingHeap = new PairingHeap({
+  lessThanFunc: (o1, o2) => o1 < o2 // optional
+})
+
+let node: PairingNode<number>
+
+node = pairingHeap.add(7)
+pairingHeap.add(9)
+pairingHeap.add(5)
+pairingHeap.add(3)
+pairingHeap.getMin() // 3
+pairingHeap.deleteMin() // 3
+pairingHeap.delete(node)
+pairingHeap.deleteMin() // 5
+pairingHeap.size() // 1
+pairingHeap.isEmpty() // false
+pairingHeap.clear()
+pairingHeap.deleteMin() // undefined
+```
 
 # License
 
