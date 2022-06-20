@@ -1,11 +1,11 @@
 import {ObjectPool} from 'src/test/object-pool'
 import {PairingHeap, PairingNode, TLessThanFunc} from './PairingHeap'
-import {createTestVariantsSync} from '@flemist/test-variants'
+import {createTestVariants} from '@flemist/test-variants'
 
 describe('pairing-heap > PairingHeap', function () {
   this.timeout(600000)
 
-  const testVariants = createTestVariantsSync(({
+  const testVariants = createTestVariants(({
     decreaseKey,
     objectPoolSize,
     count,
@@ -170,6 +170,8 @@ describe('pairing-heap > PairingHeap', function () {
       sort          : [null, 1, -1],
       count         : [0, 1, 2, 3, 4, 5, 6, 7, 10, 100],
       withEqualItems: [false, true],
+    })({
+      forceAwaitInterval: 5000,
     })
 
     console.log('iterations: ' + iterations)
