@@ -163,8 +163,8 @@ describe('pairing-heap > PairingHeap', function () {
     return iterations
   })
 
-  it('base', function () {
-    const iterations = testVariants({
+  it('base', async function () {
+    const iterations = await testVariants({
       decreaseKey   : [false],
       objectPoolSize: [null, 0, 1, 3, 10],
       sort          : [null, 1, -1],
