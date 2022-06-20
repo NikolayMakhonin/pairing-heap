@@ -171,7 +171,7 @@ describe('pairing-heap > PairingHeap', function () {
       count         : [0, 1, 2, 3, 4, 5, 6, 7, 10, 100],
       withEqualItems: [false, true],
     })({
-      forceAwaitInterval: 5000,
+      pauseInterval: 5000,
     })
 
     console.log('iterations: ' + iterations)
