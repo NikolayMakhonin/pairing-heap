@@ -2,7 +2,7 @@
 
 var tslib = require('tslib');
 var rdtsc = require('rdtsc');
-var PairingHeap = require('./PairingHeap2.cjs');
+var PairingHeap = require('./PairingHeap.cjs');
 
 describe('pairing-heap > PairingHeap perf', function () {
     this.timeout(600000);

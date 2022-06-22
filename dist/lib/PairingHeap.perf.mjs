@@ -1,6 +1,6 @@
 import { __awaiter } from 'tslib';
 import { calcPerformance } from 'rdtsc';
-import { P as PairingHeap } from './PairingHeap2.mjs';
+import { PairingHeap } from './PairingHeap.mjs';
 
 describe('pairing-heap > PairingHeap perf', function () {
     this.timeout(600000);

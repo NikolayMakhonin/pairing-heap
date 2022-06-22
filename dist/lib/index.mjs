@@ -1,1 +1,1 @@
-export { P as PairingHeap } from './PairingHeap2.mjs';
+export { PairingHeap } from './PairingHeap.mjs';
