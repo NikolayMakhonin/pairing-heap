@@ -121,6 +121,15 @@ export class PairingHeap<TItem> {
   }
 
   /**
+   * Returns the minimum node from the queue without modifying any data.
+   *
+   * @return      Minimum item
+   */
+  getMinNode(): PairingNode<TItem> {
+    return this._root
+  }
+
+  /**
 	 * Deletes the minimum item from the queue and returns it, restructuring
 	 * the queue along the way to maintain the heap property.  Relies on the
 	 * @ref <pq_delete> method to delete the root of the tree.
