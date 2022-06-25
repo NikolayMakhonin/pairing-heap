@@ -175,6 +175,22 @@ class PairingHeap {
     get isEmpty() {
         return this._root == null;
     }
+    [Symbol.iterator]() {
+        const lessThanFunc = this._lessThanFunc;
+        function* iterate(node) {
+            if (node) {
+                yield node.item;
+                if (node.next) {
+                    yield* iterate(node.next);
+                }
+                if (node.child) {
+                    node.child = collapse(node.child, lessThanFunc);
+                    yield* iterate(node.child);
+                }
+            }
+        }
+        return iterate(this._root);
+    }
 }
 /**
  * Merges two nodes together, making the greater item the child

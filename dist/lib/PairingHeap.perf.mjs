@@ -69,4 +69,8 @@ describe('pairing-heap > PairingHeap perf', function () {
             console.log(result);
         });
     });
+    it('sort', function () {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
+    });
 });

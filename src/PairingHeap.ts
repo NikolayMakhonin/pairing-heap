@@ -230,16 +230,33 @@ export class PairingHeap<TItem> {
   }
 
   [Symbol.iterator]() {
+    return this._iterate(false)
+  }
+
+  nodes() {
+    return this._iterate(true)
+  }
+
+  private _iterate(nodes: false): Iterator<TItem>
+  private _iterate(nodes: true): Iterator<PairingNode<TItem>>
+  private _iterate(nodes: boolean): Iterator<PairingNode<TItem>|TItem> {
     const lessThanFunc = this._lessThanFunc
 
     function *iterate(node: PairingNode<TItem>) {
       if (node) {
-        yield node.item
+        if (nodes) {
+          yield node
+        }
+        else {
+          yield node.item
+        }
         if (node.next) {
           yield* iterate(node.next)
         }
         if (node.child) {
-          node.child = collapse(node.child, lessThanFunc)
+          if (node.child.next != null) {
+            node.child = collapse(node.child, lessThanFunc)
+          }
           yield* iterate(node.child)
         }
       }

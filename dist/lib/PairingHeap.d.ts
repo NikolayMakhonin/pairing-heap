@@ -96,6 +96,7 @@ export declare class PairingHeap<TItem> {
        * @return      True if queue holds nothing, false otherwise
        */
     get isEmpty(): boolean;
+    [Symbol.iterator](): any;
     readonly merge: typeof merge;
     readonly collapse: typeof collapse;
 }
