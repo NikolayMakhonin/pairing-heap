@@ -183,7 +183,11 @@ class PairingHeap {
         return this._iterate(false);
     }
     nodes() {
-        return this._iterate(true);
+        return {
+            [Symbol.iterator]() {
+                return this._iterate(true);
+            },
+        };
     }
     _iterate(nodes) {
         const lessThanFunc = this._lessThanFunc;

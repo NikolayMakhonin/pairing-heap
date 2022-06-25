@@ -97,7 +97,9 @@ export declare class PairingHeap<TItem> {
        */
     get isEmpty(): boolean;
     [Symbol.iterator](): Iterator<TItem, any, undefined>;
-    nodes(): Iterator<PairingNode<TItem>, any, undefined>;
+    nodes(): {
+        [Symbol.iterator](): any;
+    };
     private _iterate;
     readonly merge: typeof merge;
     readonly collapse: typeof collapse;
