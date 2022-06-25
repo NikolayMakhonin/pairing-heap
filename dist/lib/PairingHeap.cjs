@@ -180,15 +180,28 @@ class PairingHeap {
         return this._root == null;
     }
     [Symbol.iterator]() {
+        return this._iterate(false);
+    }
+    nodes() {
+        return this._iterate(true);
+    }
+    _iterate(nodes) {
         const lessThanFunc = this._lessThanFunc;
         function* iterate(node) {
             if (node) {
-                yield node.item;
+                if (nodes) {
+                    yield node;
+                }
+                else {
+                    yield node.item;
+                }
                 if (node.next) {
                     yield* iterate(node.next);
                 }
                 if (node.child) {
-                    node.child = collapse(node.child, lessThanFunc);
+                    if (node.child.next != null) {
+                        node.child = collapse(node.child, lessThanFunc);
+                    }
                     yield* iterate(node.child);
                 }
             }
