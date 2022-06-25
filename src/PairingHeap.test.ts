@@ -37,7 +37,8 @@ describe('pairing-heap > PairingHeap', function () {
     for (const item of heap) {
       if (item === 25.5) {
         assert.strictEqual(i, 26)
-      } else {
+      }
+      else {
         assert.strictEqual(item, i)
         i++
       }
