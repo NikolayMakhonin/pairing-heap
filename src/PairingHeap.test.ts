@@ -5,6 +5,34 @@ import {createTestVariants} from '@flemist/test-variants'
 describe('pairing-heap > PairingHeap', function () {
   this.timeout(600000)
 
+  it('iterator', function () {
+    const heap = new PairingHeap<number>()
+
+    function addItems(seek: number) {
+      for (let i = 0; i < 10; i++) {
+        const value = ((i + 2) * 46337) % 10 // pseudo random without duplicates
+        heap.add(value * 3 + seek)
+      }
+    }
+
+    addItems(1)
+
+    let i = 0
+    for (const item of heap) {
+      assert.strictEqual(item, i * 3 + 1)
+      i++
+    }
+
+    addItems(0)
+    addItems(2)
+
+    i = 0
+    for (const item of heap) {
+      assert.strictEqual(item, i)
+      i++
+    }
+  })
+
   const testVariants = createTestVariants(({
     decreaseKey,
     objectPoolSize,
@@ -138,10 +166,20 @@ describe('pairing-heap > PairingHeap', function () {
       }
 
       const resultItems = []
+      for (const item of heap) {
+        resultItems.push(item)
+      }
+
+      assert.deepStrictEqual(resultItems, itemsSorted)
+      resultItems.length = 0
+
       for (let i = 0; i < items.length; i++) {
         const valueMin = heap.getMin()
         resultItems.push(valueMin)
         // assert.strictEqual(valueMin, itemsSorted[i])
+
+        const minNode = heap.getMinNode()
+        assert.strictEqual(minNode.item, valueMin)
 
         assert.strictEqual(heap.size, items.length - i)
         assert.strictEqual(heap.isEmpty, false)
@@ -163,7 +201,7 @@ describe('pairing-heap > PairingHeap', function () {
     return iterations
   })
 
-  it('base', async function () {
+  it('variants', async function () {
     await testVariants({
       decreaseKey   : [false],
       objectPoolSize: [null, 0, 1, 3, 10],
