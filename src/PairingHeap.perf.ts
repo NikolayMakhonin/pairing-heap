@@ -81,4 +81,8 @@ describe('pairing-heap > PairingHeap perf', function () {
     
     console.log(result)
   })
+
+  it('sort', async function () {
+
+  })
 })
