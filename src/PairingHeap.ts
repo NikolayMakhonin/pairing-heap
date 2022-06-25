@@ -235,7 +235,7 @@ export class PairingHeap<TItem> {
 
   nodes() {
     return {
-      [Symbol.iterator]() {
+      [Symbol.iterator]: () => {
         return this._iterate(true)
       },
     }

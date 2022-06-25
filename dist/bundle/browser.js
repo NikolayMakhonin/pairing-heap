@@ -77,14 +77,12 @@ return this._iterate(!0)},e
 },e.prototype._iterate=function(e){
 var r=this._lessThanFunc;return function o(l){
 return t(this,(function(t){switch(t.label){case 0:
-return l?e?[4,l]:[3,2]:[3,8];case 1:
+return l?e?[4,l]:[3,2]:[3,6];case 1:
 return t.sent(),[3,4];case 2:return[4,l.item]
 ;case 3:t.sent(),t.label=4;case 4:
-return l.next?[5,n(o(l.next))]:[3,6];case 5:
-t.sent(),t.label=6;case 6:
 return l.child?(null!=l.child.next&&(l.child=i(l.child,r),
-l.child.prev=l),[5,n(o(l.child))]):[3,8];case 7:
-t.sent(),t.label=8;case 8:return[2]}}))
+l.child.prev=l),[5,n(o(l.child))]):[3,6];case 5:
+t.sent(),t.label=6;case 6:return[2]}}))
 }(this._root)},e}();function l(e,t,n){var r,o
 ;return null==e?t:null==t||e===t?e:(n(t.item,e.item)?(r=t,
 o=e):(r=e,o=t),o.next=r.child,
