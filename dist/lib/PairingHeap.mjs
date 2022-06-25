@@ -201,6 +201,7 @@ class PairingHeap {
                 if (node.child) {
                     if (node.child.next != null) {
                         node.child = collapse(node.child, lessThanFunc);
+                        node.child.prev = node;
                     }
                     yield* iterate(node.child);
                 }

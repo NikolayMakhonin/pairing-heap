@@ -82,10 +82,10 @@ return t.sent(),[3,4];case 2:return[4,l.item]
 ;case 3:t.sent(),t.label=4;case 4:
 return l.next?[5,n(o(l.next))]:[3,6];case 5:
 t.sent(),t.label=6;case 6:
-return l.child?(null!=l.child.next&&(l.child=i(l.child,r)),
-[5,n(o(l.child))]):[3,8];case 7:t.sent(),t.label=8
-;case 8:return[2]}}))}(this._root)},e}()
-;function l(e,t,n){var r,o
+return l.child?(null!=l.child.next&&(l.child=i(l.child,r),
+l.child.prev=l),[5,n(o(l.child))]):[3,8];case 7:
+t.sent(),t.label=8;case 8:return[2]}}))
+}(this._root)},e}();function l(e,t,n){var r,o
 ;return null==e?t:null==t||e===t?e:(n(t.item,e.item)?(r=t,
 o=e):(r=e,o=t),o.next=r.child,
 null!=r.child&&(r.child.prev=o),o.prev=r,r.child=o,
