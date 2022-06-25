@@ -31,6 +31,17 @@ describe('pairing-heap > PairingHeap', function () {
       assert.strictEqual(item, i)
       i++
     }
+
+    i = 0
+    heap.add(25.5)
+    for (const item of heap) {
+      if (item === 25.5) {
+        assert.strictEqual(i, 26)
+      } else {
+        assert.strictEqual(item, i)
+        i++
+      }
+    }
   })
 
   const testVariants = createTestVariants(({
