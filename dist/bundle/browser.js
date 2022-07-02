@@ -71,9 +71,9 @@ get:function(){return null==this._root},
 enumerable:!1,configurable:!0
 }),e.prototype[Symbol.iterator]=function(){
 return this._iterate(!1)
-},e.prototype.nodes=function(){var e
+},e.prototype.nodes=function(){var e,t=this
 ;return(e={})[Symbol.iterator]=function(){
-return this._iterate(!0)},e
+return t._iterate(!0)},e
 },e.prototype._iterate=function(e){
 var r=this._lessThanFunc;return function o(l){
 return t(this,(function(t){switch(t.label){case 0:
