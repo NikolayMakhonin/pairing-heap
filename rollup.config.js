@@ -16,6 +16,7 @@ import nycrc from './nyc.config.mjs'
 import { terser } from 'rollup-plugin-terser'
 import path from 'path'
 import pkg from './package.json'
+import { createFilter } from '@rollup/pluginutils'
 
 const dev = !!process.env.ROLLUP_WATCH
 
@@ -93,6 +94,14 @@ const nodeConfig = ({
       declarationDir: outputDir,
       declaration   : true,
       transformers  : {
+        before: [
+          {
+            type   : 'program',
+            factory: (program) => {
+              return tsTransformPaths(program).before
+            },
+          },
+        ],
         afterDeclarations: [
           {
             type   : 'program',
@@ -105,13 +114,17 @@ const nodeConfig = ({
     }),
   ],
   onwarn  : onwarnRollup,
-  external: []
-    .concat(Object.keys(pkg.dependencies))
-    .concat(Object.keys(pkg.devDependencies))
-    .concat(require('module').builtinModules || Object.keys(process.binding('natives'))),
+  external: createFilter([
+    'src/**/*.{js,cjs,mjs}',
+    ...[
+      ...Object.keys(pkg.dependencies),
+      ...Object.keys(pkg.devDependencies),
+      ...require('module').builtinModules || Object.keys(process.binding('natives')),
+    ].map(o => `**/node_modules/${o}/**`),
+  ]),
 })
 
-const browserConfig = ({input, outputDir, outputFile}) => ({
+const browserConfig = ({name, input, outputDir, outputFile}) => ({
   cache : true,
   input,
   output: {
@@ -121,6 +134,7 @@ const browserConfig = ({input, outputDir, outputFile}) => ({
     entryFileNames: outputFile,
     chunkFileNames: outputFile,
     sourcemap     : dev && 'inline',
+    name,
   },
   plugins: [
     del({ targets: path.join(outputDir, outputFile) }),
