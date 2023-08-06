@@ -1,11 +1,3 @@
-/**
- * Holds an inserted element, as well as pointers to maintain tree
- * structure.  Acts as a handle to clients for the purpose of
- * mutability.  Each node is contained in a doubly linked list of
- * siblings and has a pointer to it's first child.  If a node is the
- * first of its siblings, then its prev pointer points to their
- * collective parent.  The last child is marked by a null next pointer.
- */
 function lessThanDefault(o1, o2) {
     return o1 < o2;
 }

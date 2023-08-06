@@ -6,7 +6,7 @@
  * first of its siblings, then its prev pointer points to their
  * collective parent.  The last child is marked by a null next pointer.
  */
-import {IObjectPool} from 'src/test/object-pool'
+import type {IObjectPool} from 'src/test/object-pool'
 
 // source: https://github.com/patmorin/priority-queue-testing/blob/master/queues/pairing_heap.c
 // see also: https://github.com/NikolayMakhonin/priority-queues-ts

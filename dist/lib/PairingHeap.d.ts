@@ -6,15 +6,12 @@
  * first of its siblings, then its prev pointer points to their
  * collective parent.  The last child is marked by a null next pointer.
  */
-export interface IObjectPool<TObject> {
-    get(): TObject;
-    release(obj: TObject): void;
-}
+import type { IObjectPool } from "./test/object-pool";
 export interface PairingNode<TItem> {
     item: TItem;
-    child: PairingNode<TItem>;
-    next: PairingNode<TItem>;
-    prev: PairingNode<TItem>;
+    child: PairingNode<TItem> | undefined | null;
+    next: PairingNode<TItem> | undefined | null;
+    prev: PairingNode<TItem> | undefined | null;
 }
 export declare type TLessThanFunc<TItem> = (o1: TItem, o2: TItem) => boolean;
 /**
@@ -30,8 +27,8 @@ export declare class PairingHeap<TItem> {
     private _size;
     private _root;
     constructor({ objectPool, lessThanFunc, }?: {
-        objectPool?: IObjectPool<PairingNode<TItem>>;
-        lessThanFunc?: TLessThanFunc<TItem>;
+        objectPool?: IObjectPool<PairingNode<TItem>> | undefined | null;
+        lessThanFunc?: TLessThanFunc<TItem> | null;
     });
     /**
        * Deletes all nodes, leaving the queue empty.
@@ -56,13 +53,13 @@ export declare class PairingHeap<TItem> {
        *
        * @return      Minimum item
        */
-    getMin(): TItem;
+    getMin(): TItem | undefined | null;
     /**
      * Returns the minimum node from the queue without modifying any data.
      *
      * @return      Minimum item
      */
-    getMinNode(): PairingNode<TItem>;
+    getMinNode(): PairingNode<TItem> | undefined | null;
     /**
        * Deletes the minimum item from the queue and returns it, restructuring
        * the queue along the way to maintain the heap property.  Relies on the
@@ -70,7 +67,7 @@ export declare class PairingHeap<TItem> {
        *
        * @return      Minimum item, corresponding to item deleted
        */
-    deleteMin(): TItem;
+    deleteMin(): TItem | undefined | null;
     /**
        * Deletes an arbitrary item from the queue and modifies queue structure
        * to preserve the heap invariant.  Requires that the location of the
@@ -112,7 +109,7 @@ export declare class PairingHeap<TItem> {
  * @param b     Second node
  * @return      Resulting tree root
  */
-export declare function merge<TItem>(a: PairingNode<TItem>, b: PairingNode<TItem>, lessThanFunc: TLessThanFunc<TItem>): PairingNode<TItem>;
+export declare function merge<TItem>(a: PairingNode<TItem> | undefined | null, b: PairingNode<TItem> | undefined | null, lessThanFunc: TLessThanFunc<TItem>): PairingNode<TItem> | undefined | null;
 /**
  * Performs an iterative pairwise merging of a list of nodes until a
  * single tree remains.  Implements the two-pass method without using
@@ -123,4 +120,4 @@ export declare function merge<TItem>(a: PairingNode<TItem>, b: PairingNode<TItem
  * @param node  Head of the list to collapse
  * @return      Root of the collapsed tree
  */
-export declare function collapse<TItem>(node: PairingNode<TItem>, lessThanFunc: TLessThanFunc<TItem>): PairingNode<TItem>;
+export declare function collapse<TItem>(node: PairingNode<TItem> | undefined | null, lessThanFunc: TLessThanFunc<TItem>): PairingNode<TItem> | undefined | null;
