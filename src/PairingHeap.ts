@@ -6,11 +6,7 @@
  * first of its siblings, then its prev pointer points to their
  * collective parent.  The last child is marked by a null next pointer.
  */
-
-export interface IObjectPool<TObject> {
-  get(): TObject
-  release(obj: TObject): void
-}
+import {IObjectPool} from 'src/test/object-pool'
 
 // source: https://github.com/patmorin/priority-queue-testing/blob/master/queues/pairing_heap.c
 // see also: https://github.com/NikolayMakhonin/priority-queues-ts
@@ -19,11 +15,11 @@ export interface PairingNode<TItem> {
 	item: TItem
 
 	// ! First child of this node
-	child: PairingNode<TItem>
+	child: PairingNode<TItem>|undefined|null
 	// ! Next node in the list of this node's siblings
-	next: PairingNode<TItem>
+	next: PairingNode<TItem>|undefined|null
 	// ! Previous node in the list of this node's siblings
-	prev: PairingNode<TItem>
+	prev: PairingNode<TItem>|undefined|null
 }
 
 export type TLessThanFunc<TItem> = (o1: TItem, o2: TItem) => boolean
@@ -41,19 +37,19 @@ function lessThanDefault(o1, o2) {
  */
 export class PairingHeap<TItem> {
   // ! Memory map to use for node allocation
-  private readonly _objectPool: IObjectPool<PairingNode<TItem>>
+  private readonly _objectPool: IObjectPool<PairingNode<TItem>>|undefined|null
   private readonly _lessThanFunc: TLessThanFunc<TItem>
   // ! The number of items held in the queue
   private _size: number = 0
   // ! Pointer to the minimum node in the queue
-  private _root: PairingNode<TItem> = null
+  private _root: PairingNode<TItem>|undefined|null = null
 
   constructor({
     objectPool,
     lessThanFunc,
   }: {
-		objectPool?: IObjectPool<PairingNode<TItem>>,
-		lessThanFunc?: TLessThanFunc<TItem>,
+		objectPool?: IObjectPool<PairingNode<TItem>>|undefined|null,
+		lessThanFunc?: TLessThanFunc<TItem>|null,
 	} = {}) {
     this._objectPool = objectPool
     this._lessThanFunc = lessThanFunc || lessThanDefault
@@ -85,7 +81,7 @@ export class PairingHeap<TItem> {
 	 * @return      Pointer to corresponding node
 	 */
   add(item: TItem): PairingNode<TItem> {
-    let node: PairingNode<TItem> = this._objectPool != null
+    let node: PairingNode<TItem>|undefined|null = this._objectPool != null
       ? this._objectPool.get()
       : null
 
@@ -113,7 +109,7 @@ export class PairingHeap<TItem> {
 	 *
 	 * @return      Minimum item
 	 */
-  getMin(): TItem {
+  getMin(): TItem|undefined|null {
     const {_root} = this
     return _root == null
       ? void 0
@@ -125,7 +121,7 @@ export class PairingHeap<TItem> {
    *
    * @return      Minimum item
    */
-  getMinNode(): PairingNode<TItem> {
+  getMinNode(): PairingNode<TItem>|undefined|null {
     return this._root
   }
 
@@ -136,7 +132,7 @@ export class PairingHeap<TItem> {
 	 *
 	 * @return      Minimum item, corresponding to item deleted
 	 */
-  deleteMin(): TItem {
+  deleteMin(): TItem|undefined|null {
     const {_root} = this
     if (_root == null) {
       return void 0
@@ -187,7 +183,7 @@ export class PairingHeap<TItem> {
     node.child = null
     node.prev = null
     node.next = null
-    node.item = void 0
+    node.item = void 0 as any
     this._objectPool?.release(node)
 
     this._size--
@@ -206,11 +202,11 @@ export class PairingHeap<TItem> {
       return
     }
 
-    if (node.prev.child === node) {
-      node.prev.child = node.next
+    if (node.prev!.child === node) {
+      node.prev!.child = node.next
     }
     else {
-      node.prev.next = node.next
+      node.prev!.next = node.next
     }
 
     if (node.next != null) {
@@ -246,7 +242,7 @@ export class PairingHeap<TItem> {
   private _iterate(nodes: boolean): Iterator<PairingNode<TItem>|TItem> {
     const lessThanFunc = this._lessThanFunc
 
-    function *iterate(node: PairingNode<TItem>) {
+    function *iterate(node: PairingNode<TItem>|undefined|null) {
       if (node) {
         if (nodes) {
           yield node
@@ -257,7 +253,7 @@ export class PairingHeap<TItem> {
         if (node.child) {
           if (node.child.next != null) {
             node.child = collapse(node.child, lessThanFunc)
-            node.child.prev = node
+            node.child!.prev = node
           }
           yield* iterate(node.child)
         }
@@ -279,10 +275,10 @@ export class PairingHeap<TItem> {
  * @return      Resulting tree root
  */
 export function merge<TItem>(
-  a: PairingNode<TItem>,
-  b: PairingNode<TItem>,
+  a: PairingNode<TItem>|undefined|null,
+  b: PairingNode<TItem>|undefined|null,
   lessThanFunc: TLessThanFunc<TItem>,
-): PairingNode<TItem> {
+): PairingNode<TItem>|undefined|null {
   let parent: PairingNode<TItem>
   let child: PairingNode<TItem>
 
@@ -331,14 +327,14 @@ export function merge<TItem>(
  * @return      Root of the collapsed tree
  */
 export function collapse<TItem>(
-  node: PairingNode<TItem>,
+  node: PairingNode<TItem>|undefined|null,
   lessThanFunc: TLessThanFunc<TItem>,
-): PairingNode<TItem> {
-  let tail: PairingNode<TItem>
+): PairingNode<TItem>|undefined|null {
+  let tail: PairingNode<TItem>|undefined|null
   let a: PairingNode<TItem>
-  let b: PairingNode<TItem>
-  let next: PairingNode<TItem>
-  let result: PairingNode<TItem>
+  let b: PairingNode<TItem>|undefined|null
+  let next: PairingNode<TItem>|undefined|null
+  let result: PairingNode<TItem>|undefined|null
 
   if (node == null) {
     return null
@@ -353,7 +349,7 @@ export function collapse<TItem>(
       next = b.next
       result = merge(a, b, lessThanFunc)
       // tack the result onto the end of the temporary list
-      result.prev = tail
+      result!.prev = tail
       tail = result
     }
     else {

@@ -53,13 +53,15 @@ describe('pairing-heap > PairingHeap', function () {
     withEqualItems,
   }: {
     decreaseKey: boolean,
-    objectPoolSize: number,
+    objectPoolSize: number|undefined|null,
     count: number,
-    sort: -1|1,
+    sort: -1|1|undefined|null,
     withEqualItems: boolean,
   }) => {
-    const objectPool = objectPoolSize == null ? null : new ObjectPool<PairingNode<number>>(objectPoolSize)
-    const lessThanFunc: TLessThanFunc<number> = sort == null
+    const objectPool = objectPoolSize == null
+      ? null
+      : new ObjectPool<PairingNode<number>>(objectPoolSize)
+    const lessThanFunc: TLessThanFunc<number>|undefined|null = sort == null
       ? null
       : function lessThanFunc(o1, o2) {
         if (sort > 0) {
@@ -177,7 +179,7 @@ describe('pairing-heap > PairingHeap', function () {
         assert.strictEqual(heap.isEmpty, false)
       }
 
-      const resultItems = []
+      const resultItems: any[] = []
       for (const item of heap) {
         resultItems.push(item)
       }
@@ -187,11 +189,11 @@ describe('pairing-heap > PairingHeap', function () {
 
       for (let i = 0; i < items.length; i++) {
         const valueMin = heap.getMin()
-        resultItems.push(valueMin)
+        ;(resultItems as any[]).push(valueMin)
         // assert.strictEqual(valueMin, itemsSorted[i])
 
         const minNode = heap.getMinNode()
-        assert.strictEqual(minNode.item, valueMin)
+        assert.strictEqual(minNode!.item, valueMin)
 
         assert.strictEqual(heap.size, items.length - i)
         assert.strictEqual(heap.isEmpty, false)

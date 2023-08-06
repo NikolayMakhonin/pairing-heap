@@ -1,6 +1,6 @@
 {
   "name": "@flemist/pairing-heap",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "description": "Fastest pairing heap (priority queue) implementation on JavaScript",
   "main": "dist/lib/index.cjs",
   "module": "dist/lib/index.mjs",

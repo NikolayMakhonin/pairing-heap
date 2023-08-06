@@ -3,13 +3,13 @@ import {IObjectPool} from './contracts'
 export class ObjectPool<TObject> implements IObjectPool<TObject> {
   size = 0
   maxSize
-  private readonly _stack = [null]
+  private readonly _stack: (TObject|undefined|null)[] = [null]
 
   constructor(maxSize: number) {
     this.maxSize = maxSize
   }
 
-  get(): TObject {
+  get(): TObject|undefined|null {
     // this.usedSize++
     const lastIndex = this.size - 1
     if (lastIndex >= 0) {

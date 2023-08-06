@@ -6,7 +6,7 @@ describe('pairing-heap > PairingHeap perf', function () {
 
   it('base', async function () {
     const pairingHeap = new PairingHeap()
-    const array = []
+    const array: any[] = []
     const set = new Set()
 
     function getMinIndex(arr) {
@@ -78,7 +78,7 @@ describe('pairing-heap > PairingHeap perf', function () {
         }
       },
     )
-    
+
     console.log(result)
   })
 
